@@ -39,8 +39,7 @@ def create_json(seeds: list[str], username: str):
         public_key = get_public_key(get_private_key(subseed))
         signatyre = pretty_signatyre(sign(subseed, public_key, digest))
         identity = get_identity(public_key)
-        dict_list.append(
-            [{"identity": identity, "username": username, "signature": signatyre}])
+        dict_list.append({"identity": identity, "username": username, "signature": signatyre})
 
     return json.loads(json.dumps(dict_list))
 

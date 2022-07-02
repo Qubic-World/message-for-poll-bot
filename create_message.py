@@ -21,12 +21,12 @@ def get_identity_list(seeds: list[str]) -> list[str]:
     return identity_list
 
 
-def create_digest(username: str):
-    kangaroo_twelve(username.encode('ascii'))
+def create_digest(username_id: str):
+    kangaroo_twelve(username_id.encode('ascii'))
 
 
-def create_json(seeds: list[str], username: str):
-    digest = kangaroo_twelve(username.encode('ascii'))
+def create_json(seeds: list[str], username_id: str):
+    digest = kangaroo_twelve(username_id.encode('ascii'))
 
     dict_list = []
     for seed in seeds:
@@ -39,7 +39,7 @@ def create_json(seeds: list[str], username: str):
         public_key = get_public_key(get_private_key(subseed))
         signatyre = pretty_signatyre(sign(subseed, public_key, digest))
         identity = get_identity(public_key)
-        dict_list.append({"identity": identity, "username": username, "signature": signatyre})
+        dict_list.append({"identity": identity, "username_id": username_id, "signature": signatyre})
 
     return json.loads(json.dumps(dict_list))
 
@@ -69,12 +69,12 @@ def main():
     seeds = list(set(seeds))
     print(f"Your seeds: {seeds}")
 
-    username = input("Enter your username from discord: ")
-    if len(username) <= 0:
-        logging.error("Your username is empty")
+    username_id = input("Enter your ID from discord: ")
+    if len(username_id) <= 0:
+        logging.error("Your ID is empty")
         return
 
-    print(json.dumps(create_json(seeds, username), indent=4))
+    print(json.dumps(create_json(seeds, username_id), indent=4))
 
 
 if __name__ == "__main__":

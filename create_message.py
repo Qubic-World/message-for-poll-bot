@@ -4,7 +4,7 @@ import logging
 from algorithms.verify import *
 
 
-def get_identity_list(seeds: list[str]) -> list[str]:
+def get_identity_list(seeds: list) -> list:
     if len(seeds) <= 0:
         return []
 
@@ -25,7 +25,7 @@ def create_digest(username_id: str):
     kangaroo_twelve(username_id.encode('ascii'))
 
 
-def create_json(seeds: list[str], username_id: str):
+def create_json(seeds: list, username_id: str):
     digest = kangaroo_twelve(username_id.encode('ascii'))
 
     dict_list = []
